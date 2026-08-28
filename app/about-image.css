@@ -1,0 +1,14 @@
+.about-hero::after {
+  background-image:
+    linear-gradient(90deg, rgba(25, 21, 17, 0.18), rgba(25, 21, 17, 0.52)),
+    url('/hiro-kitsuke-about.png');
+  background-position: center 42%;
+}
+
+.story-art {
+  background-image:
+    linear-gradient(rgba(45, 37, 31, 0.08), rgba(45, 37, 31, 0.45)),
+    url('/hiro-kitsuke-about.png');
+  background-position: center;
+  background-size: cover;
+}

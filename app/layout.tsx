@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./about-image.css";
 
 export const metadata: Metadata = {
   title: "ひろ着付け｜心ほどける、出張着付け",
