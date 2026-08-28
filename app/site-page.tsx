@@ -23,7 +23,7 @@ const nav: { href: string; label: string; page: PageName }[] = [
 function Header({ page }: { page: PageName }) {
   const [open, setOpen] = useState(false);
   return <header className="header">
-    <a className="brand" href="/" aria-label="ひろ着付け ホーム"><span>ひろ</span><b>着付け</b><small>HIRO KITSUKE</small></a>
+    <a className="brand" href="/" aria-label="ひろ着付け ホーム"><img src="/hiro-kitsuke-logo.png" alt="ひろ着付け HIRO KITSUKE" /></a>
     <button className="menu" aria-label="メニュー" aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button>
     <nav className={open ? "nav open" : "nav"} aria-label="メインナビゲーション">
       {nav.map(item => <a className={page === item.page ? "active" : ""} key={item.page} href={item.href}>{item.label}</a>)}
@@ -33,7 +33,7 @@ function Header({ page }: { page: PageName }) {
 }
 
 function Footer() {
-  return <footer><div className="footer-mark">ひろ着付け</div><p>装う時間も、思い出に。</p><div className="footer-links"><a href="/about">私たちについて</a><a href="/reserve">料金・ご予約</a><a href="/inquiry">お問い合わせ</a></div><small>© 2026 HIRO KITSUKE</small></footer>;
+  return <footer><img className="footer-logo" src="/hiro-kitsuke-logo.png" alt="ひろ着付け HIRO KITSUKE" /><p>装う時間も、思い出に。</p><div className="footer-links"><a href="/about">私たちについて</a><a href="/reserve">料金・ご予約</a><a href="/inquiry">お問い合わせ</a></div><small>© 2026 HIRO KITSUKE</small></footer>;
 }
 
 function ReserveForm({ inquiry = false }: { inquiry?: boolean }) {
