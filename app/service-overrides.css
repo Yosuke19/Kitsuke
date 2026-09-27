@@ -16,6 +16,16 @@
   color: #6f594b;
 }
 
+.submit:disabled { opacity: .65; cursor: wait; }
+.form-error {
+  min-height: 18px;
+  margin: -5px 0 15px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #a13e39;
+}
+
 @media (max-width: 1000px) {
   .service-grid { grid-template-columns: repeat(2, 1fr); }
   .service-card:last-child { grid-column: auto; }

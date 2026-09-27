@@ -44,19 +44,40 @@ function Footer() {
 function ReserveForm({ inquiry = false }: { inquiry?: boolean }) {
   const [service, setService] = useState<ServiceKey>("kimono");
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const price = useMemo(() => services[service].price.toLocaleString("ja-JP"), [service]);
-  function submit(e: FormEvent) { e.preventDefault(); setSent(true); }
+  async function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSubmitting(true);
+    setError("");
+    try {
+      const response = await fetch("https://formspree.io/f/mrpbyvag", {
+        method: "POST",
+        body: new FormData(e.currentTarget),
+        headers: { Accept: "application/json" },
+      });
+      if (!response.ok) throw new Error("Formspree submission failed");
+      setSent(true);
+    } catch {
+      setError("送信できませんでした。時間をおいて再度お試しいただくか、メールでお問い合わせください。");
+    } finally {
+      setSubmitting(false);
+    }
+  }
   if (sent) return <div className="success" role="status"><span>✓</span><h3>送信ありがとうございます</h3><p>内容を確認し、24時間以内に折り返しご連絡いたします。</p><a href="/">ホームへ戻る</a></div>;
-  return <form className="reserve-form" onSubmit={submit} id="form">
+  return <form className="reserve-form" onSubmit={submit} id="form" action="https://formspree.io/f/mrpbyvag" method="post">
+    <input type="hidden" name="form_type" value={inquiry ? "お問い合わせ" : "ご予約リクエスト"} />
     <div className="form-heading"><span>REQUEST FORM</span><h2>{inquiry ? "お問い合わせ" : "ご予約リクエスト"}</h2><p>{inquiry ? "ご不明な点は、どんな小さなことでもお気軽にどうぞ。" : "下記をご入力ください。確認後、空き状況と訪問時間をご案内します。"}</p></div>
     <div className="field-row"><label>お名前<input required name="name" autoComplete="name" placeholder="山田 花子" /></label><label>メールアドレス<input required type="email" name="email" autoComplete="email" placeholder="hello@example.jp" /></label></div>
-    <div className="field-row"><label>電話番号<input required type="tel" name="tel" autoComplete="tel" placeholder="090-0000-0000" /></label><label>ご希望のサービス<select value={service} onChange={e => setService(e.target.value as ServiceKey)}>{Object.entries(services).map(([key, value]) => <option value={key} key={key}>{value.name}</option>)}</select></label></div>
+    <div className="field-row"><label>電話番号<input required type="tel" name="tel" autoComplete="tel" placeholder="090-0000-0000" /></label>{!inquiry && <label>ご希望のサービス<select name="service" value={service} onChange={e => setService(e.target.value as ServiceKey)}>{Object.entries(services).map(([key, value]) => <option value={key} key={key}>{value.name}</option>)}</select></label>}</div>
     {!inquiry && <><div className="field-row"><label>ご希望日<input required type="date" name="date" /></label><label>仕上がり希望時刻<input required type="time" name="time" /></label></div><label>訪問先の市区町村<input required name="area" placeholder="例：鎌倉市 長谷" /></label></>}
     <label>{inquiry ? "お問い合わせ内容" : "ご要望・人数・お着物について"}<textarea required name="message" rows={4} placeholder="ご希望やご不安な点をお聞かせください" /></label>
     {!inquiry && <div className="estimate"><div><small>選択中のメニュー</small><b>{services[service].name}</b><em>{services[service].note}</em></div><p><small>料金目安</small>¥{price}<span>（税込）</span></p></div>}
-    <label className="consent"><input required type="checkbox" /> 個人情報の取り扱いに同意します</label>
-    <button className="submit" type="submit">{inquiry ? "問い合わせを送信する" : "この内容で空き状況を確認する"}<span>→</span></button>
-    <p className="form-note">※ 送信時点では予約確定ではありません。出張費は地域により別途頂戴する場合があります。</p>
+    <label className="consent"><input required type="checkbox" name="privacy_consent" value="同意済み" /> 個人情報の取り扱いに同意します</label>
+    <p className="form-error" role="alert" aria-live="polite">{error}</p>
+    <button className="submit" type="submit" disabled={submitting}>{submitting ? "送信中…" : inquiry ? "問い合わせを送信する" : "この内容で空き状況を確認する"}{!submitting && <span>→</span>}</button>
+    <p className="form-note">{inquiry ? "※ 送信後、内容を確認して折り返しご連絡いたします。" : "※ 送信時点では予約確定ではありません。確認後、空き状況をご連絡いたします。"}</p>
   </form>;
 }
 
