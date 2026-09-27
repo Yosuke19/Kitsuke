@@ -1,10 +1,11 @@
 .service-grid {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .art-6 { background: linear-gradient(145deg, #4a2736, #9b6577); }
 .art-7 { background: linear-gradient(145deg, #25362f, #698478); }
 .art-8 { background: linear-gradient(145deg, #342b4b, #8073a0); }
+.art-9 { background: linear-gradient(145deg, #49372a, #9a7656); }
 
 @media (max-width: 1000px) {
   .service-grid { grid-template-columns: repeat(2, 1fr); }
