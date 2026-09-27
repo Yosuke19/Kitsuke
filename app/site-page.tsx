@@ -3,14 +3,17 @@
 import { FormEvent, useMemo, useState } from "react";
 
 type PageName = "home" | "about" | "reserve" | "inquiry";
-type ServiceKey = "kimono" | "furisode" | "yukata" | "kids" | "lesson";
+type ServiceKey = "kimono" | "furisode" | "yukata" | "kids" | "hakama" | "graduation" | "beginner" | "point";
 
 const services: Record<ServiceKey, { name: string; price: number; note: string }> = {
   kimono: { name: "訪問着・留袖・付け下げ", price: 9000, note: "約45分｜早朝対応可" },
-  furisode: { name: "振袖", price: 13000, note: "約60分｜帯結びアレンジ込み" },
-  yukata: { name: "浴衣", price: 5500, note: "約30分｜お二人目から500円引き" },
-  kids: { name: "七五三", price: 7000, note: "約40分｜お子さまのペースで" },
-  lesson: { name: "着付けマスタークラス", price: 6500, note: "90分｜少人数・道具相談込み" },
+  furisode: { name: "振袖", price: 12000, note: "約60分｜帯結びアレンジ込み" },
+  yukata: { name: "浴衣", price: 4500, note: "約30分｜お二人目から500円引き" },
+  kids: { name: "七五三", price: 12000, note: "約40分｜お子さまのペースで" },
+  hakama: { name: "袴", price: 10000, note: "凛と美しい袴姿に" },
+  graduation: { name: "卒業袴", price: 10000, note: "卒業式の特別なお支度" },
+  beginner: { name: "初心者着付け教室", price: 8000, note: "二時間半｜月2回｜10時〜12時半｜平日のみ" },
+  point: { name: "経験者向けポイントレッスン", price: 5000, note: "二時間｜気になるポイントを集中練習" },
 };
 
 const nav: { href: string; label: string; page: PageName }[] = [
@@ -59,7 +62,7 @@ function HomeContent() {
   return <>
     <section className="hero"><div className="hero-image" /><div className="hero-copy"><span className="eyebrow">MOBILE KIMONO DRESSING</span><h1>いつもの場所で、<br /><em>いちばん美しい私へ。</em></h1><p>ご自宅や会場へ伺う、心づくしの出張着付け。<br />晴れの日も、夏の夕べも、装う時間から特別に。</p><div className="hero-actions"><a className="primary" href="/reserve#form">着付けを予約する <span>→</span></a><a className="text-link" href="#services">サービス・料金を見る</a></div></div><div className="vertical">一日を結ぶ、<br />美しい支度。</div><div className="scroll">SCROLL <i /></div></section>
     <section className="intro"><span>AT YOUR PLACE</span><h2>移動の負担なく、<br />凛と美しいお支度を。</h2><p>慣れ親しんだご自宅で、リラックスしながら。着崩れにくく、苦しくない、ひとりひとりの身体に寄り添う着付けを大切にしています。</p><a href="/about">ひろ着付けについて <b>→</b></a></section>
-    <section className="services" id="services"><div className="section-title"><span>SERVICES</span><h2>お仕度とお稽古</h2><p>すべて税込価格です。ヘアセット・早朝料金はご相談ください。</p></div><div className="service-grid">{Object.entries(services).map(([key, s], i) => <a href={`/reserve?service=${key}#form`} className="service-card" key={key}><small>0{i + 1}</small><div className={`service-art art-${i + 1}`}><b>{i === 4 ? "学" : ["訪", "振", "浴", "祝"][i]}</b></div><h3>{s.name}</h3><p>{s.note}</p><strong>¥{s.price.toLocaleString("ja-JP")}〜</strong><span>詳しく・予約する →</span></a>)}</div></section>
+    <section className="services" id="services"><div className="section-title"><span>SERVICES</span><h2>お仕度とお稽古</h2><p>すべて税込価格です。ヘアセット・早朝料金はご相談ください。</p></div><div className="service-grid">{Object.entries(services).map(([key, s], i) => <a href={`/reserve?service=${key}#form`} className="service-card" key={key}><small>0{i + 1}</small><div className={`service-art art-${i + 1}`}><b>{["訪", "振", "浴", "祝", "袴", "卒", "初", "技"][i]}</b></div><h3>{s.name}</h3><p>{s.note}</p><strong>¥{s.price.toLocaleString("ja-JP")}〜</strong><span>詳しく・予約する →</span></a>)}</div></section>
     <section className="promise"><div><span>OUR PROMISE</span><h2>締めつけず、<br />着崩れず、<br />一日を心地よく。</h2></div><ol><li><b>01</b><h3>ご自宅まで訪問</h3><p>お荷物を運ぶ必要はありません。ご希望の場所へ伺います。</p></li><li><b>02</b><h3>安心の事前確認</h3><p>必要な小物や当日の流れを、事前に丁寧にご案内します。</p></li><li><b>03</b><h3>美しい着姿が長持ち</h3><p>お出かけの最後まで心地よい、体に沿った着付けです。</p></li></ol></section>
     <section className="home-cta"><span>RESERVATION</span><h2>大切な日のお支度を、<br />どうぞお任せください。</h2><a className="primary light" href="/reserve#form">空き状況を確認する <span>→</span></a></section>
   </>;
