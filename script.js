@@ -7,7 +7,8 @@ const services = {
   graduation: { name: '卒業袴', price: '¥10,000', note: '卒業式の特別なお支度' },
   beginner: { name: '初心者着付け教室', price: '¥8,000', note: '二時間半｜月2回｜10時〜12時半｜平日のみ' },
   point: { name: '経験者向けポイントレッスン', price: '¥5,000', note: '二時間｜気になるポイントを集中練習' },
-  'travel-lesson': { name: '出張着付けレッスン', price: '¥9,000／人', note: '3名以上｜二時間半｜月2回' }
+  'travel-beginner': { name: '出張初心者着付け教室', price: '¥9,000', note: '二時間半｜月2回｜10時〜12時半｜平日のみ' },
+  'travel-point': { name: '出張 経験者向けポイントレッスン', price: '¥6,000', note: '二時間｜気になるポイントを集中練習' }
 };
 
 document.querySelectorAll('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
