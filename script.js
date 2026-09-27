@@ -2,7 +2,7 @@ const services = {
   kimono: { name: '訪問着・留袖・付け下げ', price: '¥9,000', note: '約45分｜早朝対応可' },
   furisode: { name: '振袖', price: '¥12,000', note: '約60分｜帯結びアレンジ込み' },
   yukata: { name: '浴衣', price: '¥4,500', note: '約30分｜お二人目から500円引き' },
-  kids: { name: '七五三', price: '¥12,000', note: '約40分｜お子さまのペースで' },
+  kids: { name: '七五三', price: '¥12,000', note: '約60分｜お子さまのペースで' },
   hakama: { name: '袴', price: '¥10,000', note: '凛と美しい袴姿に' },
   graduation: { name: '卒業袴', price: '¥10,000', note: '卒業式の特別なお支度' },
   beginner: { name: '初心者着付け教室', price: '¥8,000', note: '二時間半｜月2回｜10時〜12時半｜平日のみ' },
